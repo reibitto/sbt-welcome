@@ -19,7 +19,7 @@ aliases are optional, but can be useful for particularly long commands.
 Add the following to `project/plugins.sbt`:
 
 ```scala
-addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.1.0")
+addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.1.1")
 ```
 
 ## Configuration
@@ -45,6 +45,10 @@ usefulTasks := Seq(
 )
 
 ```
+
+To disable showing the version number you can add:
+
+`showVersion := false`
 
 You can also change the default colors like so:
 

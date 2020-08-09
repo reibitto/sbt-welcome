@@ -1,7 +1,7 @@
 lazy val root = (project in file(".")).
   settings(
     name := "sbt-welcome",
-    version := "0.1.1-SNAPSHOT",
+    version := "0.1.2-SNAPSHOT",
     organization := "com.github.reibitto",
     scalaVersion := "2.12.10",
     sbtPlugin := true
