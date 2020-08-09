@@ -22,7 +22,15 @@ object WelcomePlugin extends AutoPlugin {
   override def trigger = allRequirements
 
   override lazy val projectSettings: Seq[Def.Setting[_]] = Seq(
-    logo := "[logo]",
+    logo := """
+              |  ______                           _
+              | |  ____|                         | |
+              | | |__  __  ____ _ _ __ ___  _ __ | | ___
+              | |  __| \ \/ / _` | '_ ` _ \| '_ \| |/ _ \
+              | | |____ >  < (_| | | | | | | |_) | |  __/
+              | |______/_/\_\__,_|_| |_| |_| .__/|_|\___|
+              |                            | |
+              |                            |_|           """.stripMargin,
     usefulTasks := Nil,
     welcome := welcomeTask.value,
     logoColor := SConsole.GREEN,

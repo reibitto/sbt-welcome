@@ -14,6 +14,14 @@ Here's an example of what it can look like:
 The bullet points are aliases (which are configurable), meaning you can type `d` and it'll run the 4th line item. The
 aliases are optional, but can be useful for particularly long commands.
 
+## Installation
+
+Add the following to `project/plugins.sbt`:
+
+```scala
+addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.1.0")
+```
+
 ## Configuration
 
 An example configuration:
