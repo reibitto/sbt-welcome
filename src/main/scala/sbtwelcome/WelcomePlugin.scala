@@ -9,6 +9,7 @@ object WelcomePlugin extends AutoPlugin {
   object autoImport {
     val logo             = settingKey[String]("logo")
     val usefulTasks      = settingKey[Seq[UsefulTask]]("usefulTasks")
+    val showVersion      = settingKey[Boolean]("showVersion")
     val logoColor        = settingKey[String]("logoColor")
     val aliasColor       = settingKey[String]("aliasColor")
     val commandColor     = settingKey[String]("commandColor")
@@ -33,6 +34,7 @@ object WelcomePlugin extends AutoPlugin {
               |                            |_|           """.stripMargin,
     usefulTasks := Nil,
     welcome := welcomeTask.value,
+    showVersion := true,
     logoColor := SConsole.GREEN,
     aliasColor := SConsole.MAGENTA,
     commandColor := SConsole.CYAN,
@@ -58,7 +60,9 @@ object WelcomePlugin extends AutoPlugin {
         s"$bulletPoint ${commandColor.value}${u.command}${SConsole.RESET}${description}"
       }.mkString("\n")
 
-      s"$renderedLogo ${version.value}${SConsole.RESET}\nUseful sbt tasks:\n${renderedCommands}"
+      val versionString = if(showVersion.value) s" ${version.value}" else ""
+
+      s"$renderedLogo$versionString${SConsole.RESET}\nUseful sbt tasks:\n${renderedCommands}"
     },
     onLoad in GlobalScope += { (initialState: State) =>
       usefulTasks.value.foldLeft(initialState) {
