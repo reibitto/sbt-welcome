@@ -9,7 +9,6 @@ object WelcomePlugin extends AutoPlugin {
   object autoImport {
     val logo             = settingKey[String]("logo")
     val usefulTasks      = settingKey[Seq[UsefulTask]]("usefulTasks")
-    val showVersion      = settingKey[Boolean]("showVersion")
     val logoColor        = settingKey[String]("logoColor")
     val aliasColor       = settingKey[String]("aliasColor")
     val commandColor     = settingKey[String]("commandColor")
@@ -33,15 +32,14 @@ object WelcomePlugin extends AutoPlugin {
               |                            | |
               |                            |_|           """.stripMargin,
     usefulTasks := Nil,
-    welcome := welcomeTask.value,
-    showVersion := true,
+    welcome in LocalRootProject := welcomeTask.value,
     logoColor := SConsole.GREEN,
     aliasColor := SConsole.MAGENTA,
     commandColor := SConsole.CYAN,
     onLoadMessage := {
       // Need to color each line because SBT resets the color for each line when printing `[info]`
       val renderedLogo = logo.value.linesIterator.map { line =>
-        s"${logoColor.value}${line}"
+        s"${logoColor.value}$line"
       }.mkString("\n")
 
       val renderedCommands = usefulTasks.value.map { u =>
@@ -60,9 +58,7 @@ object WelcomePlugin extends AutoPlugin {
         s"$bulletPoint ${commandColor.value}${u.command}${SConsole.RESET}${description}"
       }.mkString("\n")
 
-      val versionString = if(showVersion.value) s" ${version.value}" else ""
-
-      s"$renderedLogo$versionString${SConsole.RESET}\nUseful sbt tasks:\n${renderedCommands}"
+      s"$renderedLogo${SConsole.RESET}\nUseful sbt tasks:\n$renderedCommands"
     },
     onLoad in GlobalScope += { (initialState: State) =>
       usefulTasks.value.foldLeft(initialState) {
@@ -82,7 +78,7 @@ object WelcomePlugin extends AutoPlugin {
 
   lazy val welcomeTask =
     Def.task {
-      println(onLoadMessage.value)
+      println((onLoadMessage in LocalRootProject).value)
     }
 
 }
