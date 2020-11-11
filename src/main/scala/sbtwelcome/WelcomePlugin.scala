@@ -58,7 +58,9 @@ object WelcomePlugin extends AutoPlugin {
         s"$bulletPoint ${commandColor.value}${u.command}${SConsole.RESET}${description}"
       }.mkString("\n")
 
-      s"$renderedLogo${SConsole.RESET}\nUseful sbt tasks:\n$renderedCommands"
+      val renderedUsefulTasks = if (usefulTasks.value.isEmpty) "" else s"Useful sbt tasks:\n$renderedCommands"
+
+      s"$renderedLogo${SConsole.RESET}\n$renderedUsefulTasks"
     },
     onLoad in GlobalScope += { (initialState: State) =>
       usefulTasks.value.foldLeft(initialState) {
