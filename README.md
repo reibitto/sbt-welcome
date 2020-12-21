@@ -62,3 +62,10 @@ You can also change the default colors like so:
 - `aliasColor := Color.CYAN`
 - `commandColor := Color.YELLOW`
 - `descriptionColor := Color.GREEN`
+
+### Logo
+
+If you want to generate a fancy logo for the `logo` field, you can use one of the following tools:
+
+- [embroidery](https://github.com/wi101/embroidery)
+- [TAAG](http://patorjk.com/software/taag)
