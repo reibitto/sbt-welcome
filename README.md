@@ -34,20 +34,27 @@ An example configuration:
 import sbtwelcome._
 
 logo :=
-  """
-    |,---.                           .   ,---.         .
-    ||     ,-. ,-,-. ,-,-. ,-. ,-. ,-|   |     ,-. ,-. |- ,-. ,-.
-    ||     | | | | | | | | ,-| | | | |   |     |-' | | |  |-' |
-    |`---' `-' ' ' ' ' ' ' `-^ ' ' `-'   `---' `-' ' ' `' `-' '  """.stripMargin
+  s"""
+     |       ______ _____                   ______
+     |__________  /___  /_   ___      _________  /__________________ ________
+     |__  ___/_  __ \\  __/   __ | /| / /  _ \\_  /_  ___/  __ \\_  __ `__ \\  _ \\
+     |_(__  )_  /_/ / /_     __ |/ |/ //  __/  / / /__ / /_/ /  / / / / /  __/
+     |/____/ /_.___/\\__/     ____/|__/ \\___//_/  \\___/ \\____//_/ /_/ /_/\\___/
+     |
+     |                              ${version.value}
+     |${scala.Console.YELLOW}Scala ${scalaVersion.value}${scala.Console.RESET}
+     |
+     |""".stripMargin
 
 usefulTasks := Seq(
-  UsefulTask("a", "~compile", "Compile all modules with file-watch enabled"),
-  UsefulTask("b", "cli-client/run", "Run Command Center CLI client (interactive mode by default)"),
-  UsefulTask("c", "cli-client/assembly", "Create an executable JAR for running command line utility"),
+  UsefulTask("a", "~compile", "Compile with file-watch enabled"),
+  UsefulTask("b", "fmt", "Run scalafmt on the entire project"),
+  UsefulTask("c", "publishLocal", "Publish the sbt plugin locally so that you can consume it from a different project"),
   UsefulTask("d", "cli-client/graalvm-native-image:packageBin", "Create a native executable of the CLI client"),
   UsefulTask("e", "benchmarks/jmh:run", "Run the benchmarks")
 )
 
+logoColor := scala.Console.MAGENTA
 ```
 
 You can embed any other information in the logo, such as the project version with normal Scala string interpolation like:
