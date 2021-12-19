@@ -22,7 +22,7 @@ object WelcomePlugin extends AutoPlugin {
   override def trigger = allRequirements
 
   override lazy val projectSettings: Seq[Def.Setting[_]] = Seq(
-    logo := """
+    logo                       := """
               |  ______                           _
               | |  ____|                         | |
               | | |__  __  ____ _ _ __ ___  _ __ | | ___
@@ -30,13 +30,18 @@ object WelcomePlugin extends AutoPlugin {
               | | |____ >  < (_| | | | | | | |_) | |  __/
               | |______/_/\_\__,_|_| |_| |_| .__/|_|\___|
               |                            | |
-              |                            |_|           """.stripMargin,
-    usefulTasks := Nil,
-    welcome in LocalRootProject := welcomeTask.value,
-    logoColor := SConsole.GREEN,
-    aliasColor := SConsole.MAGENTA,
-    commandColor := SConsole.CYAN,
-    onLoadMessage := {
+              |                            |_|
+              |
+              |Change the `logo` sbt key to insert your own logo (or set it to empty if you prefer to not show it)
+              |
+              |See the README at https://github.com/reibitto/sbt-welcome for more details.""".stripMargin,
+    usefulTasks                := Nil,
+    LocalRootProject / welcome := welcomeTask.value,
+    logoColor                  := SConsole.GREEN,
+    aliasColor                 := SConsole.MAGENTA,
+    commandColor               := SConsole.CYAN,
+    descriptionColor           := "",
+    onLoadMessage              := {
       // Need to color each line because SBT resets the color for each line when printing `[info]`
       val renderedLogo = logo.value.linesIterator.map { line =>
         s"${logoColor.value}$line"
@@ -53,7 +58,7 @@ object WelcomePlugin extends AutoPlugin {
           if (u.description.isEmpty)
             ""
           else
-            s" - ${u.description}"
+            s" - ${descriptionColor.value}${u.description}${SConsole.RESET}"
 
         s"$bulletPoint ${commandColor.value}${u.command}${SConsole.RESET}${description}"
       }.mkString("\n")
@@ -63,24 +68,22 @@ object WelcomePlugin extends AutoPlugin {
       s"$renderedLogo${SConsole.RESET}\n$renderedUsefulTasks"
     },
     onLoad in GlobalScope += { (initialState: State) =>
-      usefulTasks.value.foldLeft(initialState) {
-        case (accState, task) =>
-          if (task.alias.isEmpty) accState
-          else BasicCommands.addAlias(accState, task.alias, task.command)
+      usefulTasks.value.foldLeft(initialState) { case (accState, task) =>
+        if (task.alias.isEmpty) accState
+        else BasicCommands.addAlias(accState, task.alias, task.command)
       }
     },
     onUnload in GlobalScope += { (initialState: State) =>
-      usefulTasks.value.foldLeft(initialState) {
-        case (accState, task) =>
-          if (task.alias.isEmpty) accState
-          else BasicCommands.removeAlias(accState, task.alias)
+      usefulTasks.value.foldLeft(initialState) { case (accState, task) =>
+        if (task.alias.isEmpty) accState
+        else BasicCommands.removeAlias(accState, task.alias)
       }
     }
   )
 
   lazy val welcomeTask =
     Def.task {
-      println((onLoadMessage in LocalRootProject).value)
+      println((LocalRootProject / onLoadMessage).value)
     }
 
 }

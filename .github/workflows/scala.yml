@@ -1,0 +1,26 @@
+name: Scala CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  jvm:
+    strategy:
+      fail-fast: false
+      matrix:
+        scala: [2.12.15]
+        java: [adopt@1.11, adopt@1.8]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up environment
+        uses: olafurpg/setup-scala@v10
+        with:
+          java-version: ${{ matrix.java }}
+
+      - name: Run tests
+        run: sbt ++${{ matrix.scala}} fmtCheck test

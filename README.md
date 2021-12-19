@@ -53,15 +53,15 @@ usefulTasks := Seq(
 You can embed any other information in the logo, such as the project version with normal Scala string interpolation like:
 
 ```scala
-logo := s"Some Logo ${version.value}"
+logo := s"Some Logo ${version.value}\nScala ${scalaVersion.value}"
 ```
 
 You can also change the default colors like so:
 
-- `logoColor := Console.RED`
-- `aliasColor := Color.CYAN`
-- `commandColor := Color.YELLOW`
-- `descriptionColor := Color.GREEN`
+- `logoColor := scala.Console.RED`
+- `aliasColor := scala.Console.CYAN`
+- `commandColor := scala.Console.YELLOW`
+- `descriptionColor := scala.Console.GREEN`
 
 ### Logo
 
