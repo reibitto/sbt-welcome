@@ -19,7 +19,7 @@ aliases are optional, but can be useful for particularly long commands.
 Add the following to `project/plugins.sbt`:
 
 ```scala
-addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.2.0")
+addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.2.2")
 ```
 
 ## Commands
@@ -41,7 +41,8 @@ logo :=
      |_(__  )_  /_/ / /_     __ |/ |/ //  __/  / / /__ / /_/ /  / / / / /  __/
      |/____/ /_.___/\\__/     ____/|__/ \\___//_/  \\___/ \\____//_/ /_/ /_/\\___/
      |
-     |                              ${version.value}
+     |${version.value}
+     |
      |${scala.Console.YELLOW}Scala ${scalaVersion.value}${scala.Console.RESET}
      |
      |""".stripMargin
