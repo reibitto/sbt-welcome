@@ -71,6 +71,20 @@ You can also change the default colors like so:
 - `commandColor := scala.Console.YELLOW`
 - `descriptionColor := scala.Console.GREEN`
 
+### Declaring `UsefulTask`s without aliases
+
+If you declare a `UsefulTask` without an alias, then it is presented with a `>`. This is very useful if you are making users aware of existing aliases, rather than needing to establish new ones. For example:
+
+```scala
+UsefulTask("", "myCommandAlias", "Call the 'myCommandAlias' alias")
+```
+
+Will be rendered as:
+
+```
+>  myCommandAlias - Call the 'myCommandAlias' alias
+```
+
 ### Logo
 
 If you want to generate a fancy logo for the `logo` field, you can use one of the following tools:
