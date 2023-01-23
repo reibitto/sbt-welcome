@@ -12,10 +12,11 @@ inThisBuild(
 )
 
 lazy val root = (project in file(".")).settings(
-  name         := "sbt-welcome",
-  organization := "com.github.reibitto",
-  scalaVersion := "2.12.15",
-  sbtPlugin    := true
+  name                                   := "sbt-welcome",
+  organization                           := "com.github.reibitto",
+  scalaVersion                           := "2.12.15",
+  sbtPlugin                              := true,
+  libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
 )
 
 addCommandAlias("fmt", "all root/scalafmtSbt root/scalafmtAll")

@@ -19,7 +19,7 @@ aliases are optional, but can be useful for particularly long commands.
 Add the following to `project/plugins.sbt`:
 
 ```scala
-addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.2.2")
+addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.3.0")
 ```
 
 ## Commands
@@ -48,15 +48,17 @@ logo :=
      |""".stripMargin
 
 usefulTasks := Seq(
-  UsefulTask("a", "~compile", "Compile with file-watch enabled"),
-  UsefulTask("b", "fmt", "Run scalafmt on the entire project"),
-  UsefulTask("c", "publishLocal", "Publish the sbt plugin locally so that you can consume it from a different project"),
-  UsefulTask("d", "cli-client/graalvm-native-image:packageBin", "Create a native executable of the CLI client"),
-  UsefulTask("e", "benchmarks/jmh:run", "Run the benchmarks")
+  UsefulTask("~compile", "Compile with file-watch enabled"),
+  UsefulTask("fmt", "Run scalafmt on the entire project"),
+  UsefulTask("publishLocal", "Publish the sbt plugin locally so that you can consume it from a different project"),
+  UsefulTask("cli-client/graalvm-native-image:packageBin", "Create a native executable of the CLI client"),
+  UsefulTask("benchmarks/jmh:run", "Run the benchmarks")
 )
 
 logoColor := scala.Console.MAGENTA
 ```
+
+By default, each task gets auto-assigned an alias (`a` through `z`). This can be customized (details below).
 
 You can embed any other information in the logo, such as the project version with normal Scala string interpolation like:
 
@@ -71,18 +73,46 @@ You can also change the default colors like so:
 - `commandColor := scala.Console.YELLOW`
 - `descriptionColor := scala.Console.GREEN`
 
-### Declaring `UsefulTask`s without aliases
-
-If you declare a `UsefulTask` without an alias, then it is presented with a `>`. This is very useful if you are making users aware of existing aliases, rather than needing to establish new ones. For example:
+### Defining a custom alias
 
 ```scala
-UsefulTask("", "myCommandAlias", "Call the 'myCommandAlias' alias")
+UsefulTask("all root/scalafmtSbt root/scalafmtAll", "formats all Scala files in project").alias("fmt")
 ```
 
-Will be rendered as:
+### Disabling the welcome message
 
+In CI you may want to suppress the welcome message you prefer slightly less noise. To do so, use the `welcomeEnabled`
+sbt setting like so:
+
+```scala
+welcomeEnabled := false
 ```
->  myCommandAlias - Call the 'myCommandAlias' alias
+
+You'll probably want to use an environment variable to set this dynamically so that CI and local development have
+different values.
+
+### Further customizing `UsefulTask`
+
+#### Declaring a `UsefulTask` without an alias:
+
+```scala
+UsefulTask("task1", "description1").noAlias
+```
+
+#### Rendering the alias differently
+
+You can define your own prefix or suffix with `aliasPrefix` and `aliasSuffix`. Or if you want full customization,
+there's also `formatAlias` which accepts an arbitrary function.
+
+```scala
+UsefulTask("task1", "description1").noAlias.aliasPrefix("* ")
+
+UsefulTask("task2", "description2").noAlias.aliasSuffix(" > ")
+
+def customFormatFn: String => String =
+  a => if (a.isEmpty) "( ) " else s"($a) "
+  
+UsefulTask("task3", "description3").formatAlias(customFormatFn),
 ```
 
 ### Logo
