@@ -4,6 +4,9 @@ import sbt.Keys._
 import sbt.{ Def, _ }
 
 import scala.{ Console => SConsole }
+import sbtwelcome.UsefulTaskAlias.Auto
+import sbtwelcome.UsefulTaskAlias.Custom
+import sbtwelcome.UsefulTaskAlias.Empty
 
 object WelcomePlugin extends AutoPlugin {
   object autoImport {
@@ -100,9 +103,14 @@ object WelcomePlugin extends AutoPlugin {
     var context = AutoAliasContext(0, autoAliasForIndex)
 
     usefulTasks.foldLeft(initialState) { case (accState, task) =>
-      val state = context.currentAutoAlias match {
-        case Some(alias) => BasicCommands.addAlias(accState, alias, task.command)
-        case None        => accState
+      val state = task.alias match {
+        case Custom(alias) => BasicCommands.addAlias(accState, alias, task.command)
+        case Empty         => accState
+        case Auto          =>
+          context.currentAutoAlias match {
+            case Some(alias) => BasicCommands.addAlias(accState, alias, task.command)
+            case None        => accState
+          }
       }
 
       context = context.incrementAutoAlias
