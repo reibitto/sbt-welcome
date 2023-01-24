@@ -105,8 +105,8 @@ object WelcomePlugin extends AutoPlugin {
     usefulTasks.foldLeft(initialState) { case (accState, task) =>
       val state = task.alias match {
         case Custom(alias) => BasicCommands.addAlias(accState, alias, task.command)
-        case Empty => accState
-        case Auto =>
+        case Empty         => accState
+        case Auto          =>
           context.currentAutoAlias match {
             case Some(alias) => BasicCommands.addAlias(accState, alias, task.command)
             case None        => accState
