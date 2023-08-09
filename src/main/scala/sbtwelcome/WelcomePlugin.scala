@@ -103,19 +103,19 @@ object WelcomePlugin extends AutoPlugin {
     var context = AutoAliasContext(0, autoAliasForIndex)
 
     usefulTasks.foldLeft(initialState) { case (accState, task) =>
-      val state = task.alias match {
+      task.alias match {
         case Custom(alias) => BasicCommands.addAlias(accState, alias, task.command)
         case Empty         => accState
         case Auto          =>
-          context.currentAutoAlias match {
+          val state = context.currentAutoAlias match {
             case Some(alias) => BasicCommands.addAlias(accState, alias, task.command)
             case None        => accState
           }
+
+          context = context.incrementAutoAlias
+
+          state
       }
-
-      context = context.incrementAutoAlias
-
-      state
     }
   }
 
