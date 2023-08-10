@@ -37,9 +37,10 @@ logo :=
      |""".stripMargin
 
 usefulTasks := Seq(
-  UsefulTask("a", "~compile", "Compile with file-watch enabled"),
-  UsefulTask("b", "fmt", "Run scalafmt on the entire project"),
-  UsefulTask("c", "publishLocal", "Publish the sbt plugin locally so that you can consume it from a different project")
+  UsefulTask("~compile", "Compile with file-watch enabled"),
+  UsefulTask("test", "Run all tests"),
+  UsefulTask("fmt", "Run scalafmt on the entire project"),
+  UsefulTask("publishLocal", "Publish the sbt plugin locally so that you can consume it from a different project")
 )
 
 logoColor := scala.Console.MAGENTA
