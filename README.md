@@ -1,5 +1,7 @@
 # SBT Welcome
 
+![Scala CI](https://github.com/reibitto/sbt-welcome/actions/workflows/scala.yml/badge.svg)
+
 *An SBT plugin for displaying a welcome message and commonly used tasks.*
 
 ## What is it?
