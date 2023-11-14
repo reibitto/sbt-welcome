@@ -1,12 +1,12 @@
 package sbtwelcome
 
-import scala.{ Console => SConsole }
+import scala.Console as SConsole
 
 final case class UsefulTask(
-  command: String,
-  description: String,
-  alias: UsefulTaskAlias,
-  renderAliasFn: String => String
+    command: String,
+    description: String,
+    alias: UsefulTaskAlias,
+    renderAliasFn: String => String
 ) {
 
   def autoAlias: UsefulTask = copy(alias = UsefulTaskAlias.Auto)
