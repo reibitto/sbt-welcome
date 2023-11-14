@@ -2,16 +2,16 @@ name: Scala CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master, main]
   pull_request:
-    branches: [ master ]
+    branches: [master, main]
 
 jobs:
   jvm:
     strategy:
       fail-fast: false
       matrix:
-        scala: [2.12.15]
+        scala: [2.12.18]
         java: [adopt@1.11, adopt@1.8]
     runs-on: ubuntu-latest
     steps:
