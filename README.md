@@ -21,7 +21,7 @@ aliases are optional, but can be useful for particularly long commands.
 Add the following to `project/plugins.sbt`:
 
 ```scala
-addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.3.2")
+addSbtPlugin("com.github.reibitto" % "sbt-welcome" % "0.4.0")
 ```
 
 ## Commands
@@ -116,6 +116,16 @@ def customFormatFn: String => String =
   
 UsefulTask("task3", "description3").formatAlias(customFormatFn),
 ```
+
+#### Customize the auto-alias generator
+
+If you want something other than the default auto-aliases (`a`, `b`, `c`, etc.), you can use customize it like so:
+
+```scala
+autoAliasGen := LazyList.from(1).map(n => s"t$n")
+```
+
+This would generate: `t1`, `t2`, `t3`, etc.
 
 ### Logo
 
