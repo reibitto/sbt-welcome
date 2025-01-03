@@ -154,7 +154,7 @@ object WelcomePlugin extends AutoPlugin {
     GlobalScope / onLoad += { (initialState: State) =>
       buildSbtState(initialState, usefulTasks.value, autoAliasGen.value)
     },
-    GlobalScope / onUnload  += { (initialState: State) =>
+    GlobalScope / onUnload += { (initialState: State) =>
       buildSbtState(initialState, usefulTasks.value, autoAliasGen.value)
     }
   )

@@ -1,6 +1,5 @@
 package sbtwelcome
 
-object SbtCompat {
-}
+object SbtCompat {}
 
 export sbt.given_Conversion_Scope_RichScope
