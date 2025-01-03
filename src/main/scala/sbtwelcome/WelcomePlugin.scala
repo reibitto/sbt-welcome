@@ -3,6 +3,7 @@ package sbtwelcome
 import sbt.*
 import sbt.Def
 import sbt.Keys.*
+import sbtwelcome.*
 
 import scala.collection.compat.immutable.LazyList
 import scala.Console as SConsole
@@ -150,10 +151,10 @@ object WelcomePlugin extends AutoPlugin {
         )
       else ""
     },
-    onLoad in GlobalScope += { (initialState: State) =>
+    GlobalScope / onLoad += { (initialState: State) =>
       buildSbtState(initialState, usefulTasks.value, autoAliasGen.value)
     },
-    onUnload in GlobalScope += { (initialState: State) =>
+    GlobalScope / onUnload += { (initialState: State) =>
       buildSbtState(initialState, usefulTasks.value, autoAliasGen.value)
     }
   )

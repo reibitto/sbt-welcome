@@ -11,7 +11,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scala: [2.12.18]
         java: [adopt@1.11, adopt@1.8]
     runs-on: ubuntu-latest
     steps:
@@ -23,4 +22,4 @@ jobs:
           java-version: ${{ matrix.java }}
 
       - name: Run tests
-        run: sbt ++${{ matrix.scala}} fmtCheck test
+        run: sbt ++ fmtCheck test

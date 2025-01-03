@@ -1,4 +1,7 @@
-import sbtwelcome._
+import sbtwelcome.*
+
+val scala2Version = "2.12.18"
+val scala3Version = "3.6.2"
 
 inThisBuild(
   List(
@@ -7,16 +10,29 @@ inThisBuild(
     licenses := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
     developers := List(
       Developer("reibitto", "reibitto", "reibitto@users.noreply.github.com", url("https://reibitto.github.io"))
-    )
+    ),
+    scalaVersion := scala2Version,
+    crossScalaVersions += scala3Version
   )
 )
 
 lazy val root = (project in file(".")).settings(
   name := "sbt-welcome",
   organization := "com.github.reibitto",
-  scalaVersion := "2.12.18",
   sbtPlugin := true,
-  libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
+  libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
+  pluginCrossBuild / sbtVersion := {
+    scalaBinaryVersion.value match {
+      case "2.12" => "1.10.7"
+      case _      => "2.0.0-M1"
+    }
+  },
+  conflictWarning := {
+    scalaBinaryVersion.value match {
+      case "3" => ConflictWarning("warn", Level.Warn, false)
+      case _   => conflictWarning.value
+    }
+  }
 )
 
 addCommandAlias("fmt", "all root/scalafmtSbt root/scalafmtAll")
