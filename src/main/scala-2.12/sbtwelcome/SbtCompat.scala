@@ -1,0 +1,4 @@
+package sbtwelcome
+
+object SbtCompat {
+}
