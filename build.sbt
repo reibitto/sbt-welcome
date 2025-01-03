@@ -12,7 +12,7 @@ inThisBuild(
       Developer("reibitto", "reibitto", "reibitto@users.noreply.github.com", url("https://reibitto.github.io"))
     ),
     scalaVersion := scala2Version,
-    crossScalaVersions += scala3Version,
+    crossScalaVersions += scala3Version
   )
 )
 
@@ -24,15 +24,15 @@ lazy val root = (project in file(".")).settings(
   pluginCrossBuild / sbtVersion := {
     scalaBinaryVersion.value match {
       case "2.12" => "1.10.7"
-      case _ => "2.0.0-M1"
+      case _      => "2.0.0-M1"
     }
   },
   conflictWarning := {
     scalaBinaryVersion.value match {
       case "3" => ConflictWarning("warn", Level.Warn, false)
-      case _ => conflictWarning.value
+      case _   => conflictWarning.value
     }
-  },
+  }
 )
 
 addCommandAlias("fmt", "all root/scalafmtSbt root/scalafmtAll")
