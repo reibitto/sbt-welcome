@@ -1,30 +1,24 @@
 import sbtwelcome.*
 
 val scala2Version = "2.12.18"
-val scala3Version = "3.6.2"
-
-inThisBuild(
-  List(
-    organization := "com.github.reibitto",
-    homepage := Some(url("https://github.com/reibitto/sbt-welcome")),
-    licenses := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
-    developers := List(
-      Developer("reibitto", "reibitto", "reibitto@users.noreply.github.com", url("https://reibitto.github.io"))
-    ),
-    scalaVersion := scala2Version,
-    crossScalaVersions += scala3Version
-  )
-)
+val scala3Version = "3.8.4"
 
 lazy val root = (project in file(".")).settings(
   name := "sbt-welcome",
   organization := "com.github.reibitto",
+  homepage := Some(url("https://github.com/reibitto/sbt-welcome")),
+  licenses := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
+  developers := List(
+    Developer("reibitto", "reibitto", "reibitto@users.noreply.github.com", url("https://reibitto.github.io"))
+  ),
+  scalaVersion := scala3Version,
+  crossScalaVersions := Seq(scala2Version, scala3Version),
   sbtPlugin := true,
   libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
   pluginCrossBuild / sbtVersion := {
     scalaBinaryVersion.value match {
       case "2.12" => "1.10.7"
-      case _      => "2.0.0-M1"
+      case _      => "2.0.0"
     }
   },
   conflictWarning := {
@@ -38,7 +32,7 @@ lazy val root = (project in file(".")).settings(
 addCommandAlias("fmt", "all root/scalafmtSbt root/scalafmtAll")
 addCommandAlias("fmtCheck", "all root/scalafmtSbtCheck root/scalafmtCheckAll")
 
-logo :=
+LocalRootProject / logo :=
   s"""
      |       ______ _____                   ______
      |__________  /___  /_   ___      _________  /__________________ ________
@@ -52,13 +46,11 @@ logo :=
      |
      |""".stripMargin
 
-usefulTasks := Seq(
+LocalRootProject / usefulTasks := Seq(
   UsefulTask("~compile", "Compile with file-watch enabled"),
   UsefulTask("test", "Run all tests"),
   UsefulTask("fmt", "Run scalafmt on the entire project"),
   UsefulTask("publishLocal", "Publish the sbt plugin locally so that you can consume it from a different project")
 )
 
-logoColor := scala.Console.MAGENTA
-
-ThisBuild / organization := "com.github.reibitto"
+LocalRootProject / logoColor := scala.Console.MAGENTA
