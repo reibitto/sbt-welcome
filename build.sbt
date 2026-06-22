@@ -14,16 +14,16 @@ lazy val root = (project in file(".")).settings(
   scalaVersion := scala3Version,
   crossScalaVersions := Seq(scala2Version, scala3Version),
   sbtPlugin := true,
-  libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test,
+  libraryDependencies += "org.scalameta" %% "munit" % "1.3.3" % Test,
   pluginCrossBuild / sbtVersion := {
     scalaBinaryVersion.value match {
-      case "2.12" => "1.10.7"
+      case "2.12" => "1.12.12"
       case _      => "2.0.0"
     }
   },
   conflictWarning := {
     scalaBinaryVersion.value match {
-      case "3" => ConflictWarning("warn", Level.Warn, false)
+      case "3" => ConflictWarning("warn", Level.Warn, failOnConflict = false)
       case _   => conflictWarning.value
     }
   }
