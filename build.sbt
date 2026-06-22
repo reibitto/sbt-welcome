@@ -11,6 +11,11 @@ lazy val root = (project in file(".")).settings(
   developers := List(
     Developer("reibitto", "reibitto", "reibitto@users.noreply.github.com", url("https://reibitto.github.io"))
   ),
+  publishTo := {
+    val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
+    if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
+    else localStaging.value
+  },
   scalaVersion := scala3Version,
   crossScalaVersions := Seq(scala2Version, scala3Version),
   sbtPlugin := true,
