@@ -1,21 +1,16 @@
 import sbtwelcome.*
 
-inThisBuild(
-  List(
-    organization := "com.github.reibitto",
-    homepage := Some(url("https://github.com/reibitto/sbt-test-shards")),
-    licenses := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
-    developers := List(
-      Developer("reibitto", "reibitto", "reibitto@users.noreply.github.com", url("https://reibitto.github.io"))
-    )
-  )
-)
-
 val scala2Version = "2.12.18"
 val scala3Version = "3.8.4"
 
 lazy val root = (project in file(".")).settings(
   name := "sbt-welcome",
+  organization := "com.github.reibitto",
+  homepage := Some(url("https://github.com/reibitto/sbt-welcome")),
+  licenses := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
+  developers := List(
+    Developer("reibitto", "reibitto", "reibitto@users.noreply.github.com", url("https://reibitto.github.io"))
+  ),
   scalaVersion := scala3Version,
   crossScalaVersions := Seq(scala2Version, scala3Version),
   sbtPlugin := true,
@@ -59,11 +54,3 @@ LocalRootProject / usefulTasks := Seq(
 )
 
 LocalRootProject / logoColor := scala.Console.MAGENTA
-
-ThisBuild / organization := "com.github.reibitto"
-
-ThisBuild / publishTo := {
-  val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
-  if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
-  else localStaging.value
-}
