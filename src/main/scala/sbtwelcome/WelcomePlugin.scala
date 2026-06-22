@@ -105,7 +105,7 @@ object WelcomePlugin extends AutoPlugin {
       task.alias match {
         case UsefulTaskAlias.Custom(alias) => BasicCommands.addAlias(accState, alias, task.command)
         case UsefulTaskAlias.Empty         => accState
-        case UsefulTaskAlias.Auto =>
+        case UsefulTaskAlias.Auto          =>
           context = context.findNextAutoAlias
 
           context.currentAutoAlias match {
